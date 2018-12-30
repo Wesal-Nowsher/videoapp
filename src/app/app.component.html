@@ -1,0 +1,72 @@
+<section class="section-1">
+  <div class="container custom-container">
+    <div class="row">
+      <div class="col-5">
+
+        <video width="100%"  id="video" #videoPlayer >
+          <source src="../assets/herosection.mp4" type="video/mp4">
+          <track default kind="captions"
+                 srclang="en"
+                 src="../assets/mysubs.vtt"/>
+        </video>
+      </div>
+      <div class="col-7">
+        <div class="whole-video">
+          <h4>Add Subtitles to Video</h4>
+          <div>
+            <button href="#" (click)="playpause()" class="btn btn-info btn-sm pad1">
+              <span [ngClass]="'glyphicon glyphicon-'+play"></span>
+            </button>
+            <button href="#" class="btn btn-info btn-sm pad2" (click)="restart()" >
+              <span class="fa fa-rotate-left fa-rotate-90"></span>
+            </button>
+            <button href="#" class="btn btn-info btn-sm pad3" (click)="rewind(5)">
+              <span>-5s</span>
+            </button>
+            <button href="#" class="btn btn-info btn-sm pad3" (click)="forward(5)">
+              <span>+5s</span>
+            </button>
+            <div class="time" *ngIf="cuttentTime === 1">
+              <p>
+                {{videoPlayer.currentTime | mathminStrength: videoPlayer.currentTime}}:{{videoPlayer.currentTime | mathsecStrength: videoPlayer.currentTime}}
+                / {{videoPlayer.duration | mathminStrength: videoPlayer.duration}}:{{videoPlayer.duration | mathsecStrength: videoPlayer.duration}} </p>
+            </div>
+            <div>
+              <div class="slidecontainer">
+                <input type="range" min="0" max={{videoPlayer.duration}} (change)="rangechange($event)" [(ngModel)]="videoPlayer.currentTime" class="slider" id="myRange">
+              </div>
+            </div>
+            <div class="single-substitle1" *ngFor="let item of subtitles; let i = index">
+
+              <div class="inputs-for-individuals">
+                <input type="text" class="form-control" [(ngModel)]="item.textValue" id="usr" placeholder="click here to add subtitle">
+                <button *ngIf="disbaleit(i)" class="checkee-to-po"  (click)="addfullsubtitle(i)">Save</button>
+                 <i class="fa fa-trash trashee" (click)="deletesubtitle(i)" aria-hidden="true"></i>
+              </div>
+              <div>
+                <div class="slidecontainer">
+                  <ng5-slider class="slider" [(value)]="item.minValue" [(highValue)]="item.maxValue" [options]="item.options"></ng5-slider>
+                </div>
+              </div>
+              <div class="range-show">
+                <div class="start-show"> {{ item.minValue }}</div>
+                <p class="dash">-</p>
+                <div class="end-show">{{ item.maxValue }}</div>
+              </div>
+              <div class="range-show1">
+                <div class="start-show1">Start Time</div>
+
+                <div class="end-show1">End Time</div>
+              </div>
+            </div>
+            <div class="single-substitle make-abo">
+              <button class="btn btn-success button-greend" (click)="addsubtitle()">Add a Subtitle</button>
+              <div class="inside-disables " style="background-image: url(../assets/Caption.png)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
